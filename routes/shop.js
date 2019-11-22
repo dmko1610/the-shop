@@ -13,7 +13,7 @@ router.get("/", (req, res, next) => {
     prods: products,
     pageTitle: "Shop",
     path: "/shop",
-    hasProducst: products.length > 0
+    hasProducts: products.length > 0
   });
 });
 
