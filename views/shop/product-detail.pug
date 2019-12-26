@@ -12,3 +12,4 @@ block content
     p #{product.description}
     form(action="/cart" method="post")
       button(class="btn" type="submit") Add to Cart
+      input(type="hidden" name="productId" value=productId)
