@@ -17,14 +17,14 @@ block content
               h2.product__price $#{product.price}
               p.product__description #{product.description}
             .card__actions
-              a(href=`/admin/edit-product/${product.id}?edit=true`).btn Edit
+              a(href=`/admin/edit-product/${product._id}?edit=true`).btn Edit
               form(
                 action="/admin/delete-product"
                 method="POST"
               )
                 input(
                   type="hidden" 
-                  value=`${product.id}`
+                  value=`${product._id}`
                   name="productId"
                 )
                 button(type="submit").btn Delete
