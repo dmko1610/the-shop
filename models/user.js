@@ -13,20 +13,24 @@ class User {
 
   save() {
     const db = getDb();
-    return db.collection("users").insertOne(this);
+    return db
+      .collection("users")
+      .insertOne(this);
   }
 
   addToCart(product) {
-    let cartProductIndex = 0;
-    console.log("uitem ", this.cart)
-    if (!!this.cart.items) {
+    let cartProductIndex, updatedCartItems;
+    try {
       cartProductIndex = this.cart.items.findIndex(
         (cp) => cp.productId.toString() === product._id.toString()
       );
+      updatedCartItems = [...this.cart.items];
+    } catch {
+      cartProductIndex = -1;
+      updatedCartItems = [];
     }
-    let newQuantity = 1;
-    const updatedCartItems = [...this.cart.items];
 
+    let newQuantity = 1;
     if (cartProductIndex >= 0) {
       newQuantity = this.cart.items[cartProductIndex].quantity + 1;
       updatedCartItems[cartProductIndex].quantity = newQuantity;
