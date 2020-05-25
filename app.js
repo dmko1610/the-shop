@@ -18,10 +18,11 @@ const shopRoutes = require("./routes/shop");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use((res, req, next) => {
-  User.findById("5ec7a986181957968688e6a3")
+app.use((req, res, next) => {
+  User.findById("5ec7c7be181957968688e6a6")
     .then((user) => {
-      res.user = user;
+      console.log('user  ', user);
+      req.user = new User(user.name, user.email, user.cart, user._id);
       next();
     })
     .catch((err) => console.log(err));
