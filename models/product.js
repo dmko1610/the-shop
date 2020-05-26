@@ -21,9 +21,7 @@ class Product {
     } else {
       dbOp = db.collection("products").insertOne(this);
     }
-    return dbOp
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err));
+    return dbOp.catch((err) => console.log(err));
   }
 
   static fetchAll() {
@@ -51,7 +49,6 @@ class Product {
     return db
       .collection("products")
       .deleteOne({ _id: new mongodb.ObjectId(prodId) })
-      .then((result) => console.log(result))
       .catch((err) => console.log(err));
   }
 }
