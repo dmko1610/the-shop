@@ -83,6 +83,34 @@ class User {
       );
   }
 
+  addOrder() {
+    const db = getDb();
+    return this.getCart()
+      .then((products) => {
+        const order = {
+          items: products,
+          user: {
+            _id: new ObjectId(this._id),
+            name: this.name,
+          },
+        };
+        return db.collection("orders").insertOne(order);
+      })
+      .then(() => {
+        this.cart = { items: [] };
+        return db
+          .collection("users")
+          .updateOne(
+            { _id: new ObjectId(this._id) },
+            { $set: { cart: this.cart } }
+          );
+      });
+  }
+
+  getOrders() {
+    const db = getDb();
+  }
+
   static findById(userId) {
     const db = getDb();
     return db
