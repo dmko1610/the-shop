@@ -4,11 +4,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const db =
-  "mongodb+srv://dmko1610:ta4Q6ut7ap3wYUv7@trigger-cluster-arnah.gcp.mongodb.net/test?retryWrites=true&w=majority";
+  "mongodb+srv://dmko1610:ta4Q6ut7ap3wYUv7@trigger-cluster-arnah.gcp.mongodb.net/shop?retryWrites=true&w=majority";
 
 const errorController = require("./controllers/error");
 
-const User = require("./models/user");
+// const User = require("./models/user");
 
 const app = express();
 
@@ -21,14 +21,14 @@ const shopRoutes = require("./routes/shop");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   User.findById("5ecc13826e467534e18d4db7")
     .then((user) => {
       req.user = new User(user.name, user.email, user.cart, user._id);
       next();
     })
     .catch((err) => console.log(err));
-});
+}); */
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);

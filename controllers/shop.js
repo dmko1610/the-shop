@@ -1,8 +1,7 @@
 const Product = require("../models/product");
-const Cart = require("../models/cart");
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll()
+  Product.find()
     .then((products) => {
       res.render("shop/product-list", {
         prods: products,
