@@ -8,7 +8,7 @@ const db =
 
 const errorController = require("./controllers/error");
 
-// const User = require("./models/user");
+const User = require("./models/user");
 
 const app = express();
 
@@ -21,14 +21,14 @@ const shopRoutes = require("./routes/shop");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-/* app.use((req, res, next) => {
-  User.findById("5ecc13826e467534e18d4db7")
+app.use((req, res, next) => {
+  User.findById("5ecfd48aff044e361483b0f8")
     .then((user) => {
-      req.user = new User(user.name, user.email, user.cart, user._id);
+      req.user = user;
       next();
     })
     .catch((err) => console.log(err));
-}); */
+});
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
@@ -37,5 +37,19 @@ app.use(errorController.get404);
 
 mongoose
   .connect(db)
-  .then(() => app.listen(3000))
+  .then(() => {
+    User.findOne().then((user) => {
+      if (!user) {
+        const user = new User({
+          name: "Dmitry",
+          email: "dmitry@text.com",
+          cart: {
+            items: [],
+          },
+        });
+        user.save();
+      }
+    });
+    app.listen(3000);
+  })
   .catch((err) => console.log(err));
