@@ -6,6 +6,11 @@ const mongoose = require("mongoose");
 const db =
   "mongodb+srv://dmko1610:ta4Q6ut7ap3wYUv7@trigger-cluster-arnah.gcp.mongodb.net/shop?retryWrites=true&w=majority";
 
+const connectOptions = {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+};
+
 const errorController = require("./controllers/error");
 
 const User = require("./models/user");
@@ -38,7 +43,7 @@ app.use(authRoutes);
 app.use(errorController.get404);
 
 mongoose
-  .connect(db)
+  .connect(db, connectOptions)
   .then(() => {
     User.findOne().then((user) => {
       if (!user) {
