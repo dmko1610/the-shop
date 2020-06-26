@@ -52,7 +52,6 @@ exports.postSignup = (req, res, next) => {
       return bcrypt
         .hash(password, 12)
         .then((password) => {
-          console.log("pass ", password);
           const user = new User({
             email,
             password,
