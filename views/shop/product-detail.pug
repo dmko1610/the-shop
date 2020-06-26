@@ -10,6 +10,8 @@ block content
       img(src=product.imageUrl alt=product.title)
     h2 #{product.price}
     p #{product.description}
-    form(action="/cart" method="post")
-      button(class="btn" type="submit") Add to Cart
-      input(type="hidden" name="productId" value=productId)
+    .card__actions 
+      if isAuthenticated
+        form(action="/cart" method="post")
+          button(class="btn" type="submit") Add to Cart
+          input(type="hidden" name="productId" value=productId)
