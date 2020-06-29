@@ -40,11 +40,8 @@ block content
         label(for="description") Description
         textarea(name='description' rows="5") #{description}
       if (editing)
-        input(
-          type="hidden"
-          value=`${product._id}`
-          name="productId"
-        )
+        input(type="hidden" value=`${product._id}` name="productId")
+        input(type="hidden" value=csrfToken name="_csrf")
         button.btn(type="submit") Update Product
       else
         button.btn(type="submit") Add Product
