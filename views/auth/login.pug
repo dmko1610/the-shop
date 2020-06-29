@@ -8,20 +8,12 @@ block styles
 block content
   - var description = editing ? product.description : "";
   main
-    form.login-form(
-      action="/login"
-      method="POST"
-      )
+    form.login-form(action="/login" method="POST")
       .form-control
         label(for="email") E-Mail
-        input(
-          type="email"
-          name="email"
-        )#email
+        input(type="email" name="email")#email
       .form-control
         label(for="password") Password
-        input(
-          type="password"
-          name="password"
-        )#password
+        input(type="password" name="password")#password
+      input(type="hidden" value=csrfToken name="_csrf")
       button.btn(type="submit") Login

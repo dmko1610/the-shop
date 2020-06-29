@@ -20,6 +20,11 @@ block content
               a(href='/products/' + product._id class="btn") Details
               if isAuthenticated
                 form(action="/cart" method="POST")
+                  input(
+                    type="hidden" 
+                    value=csrfToken 
+                    name="_csrf"
+                  )
                   button.btn Add to Cart
                   input(
                     type="hidden"
