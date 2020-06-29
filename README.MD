@@ -1,4 +1,4 @@
-#The shop 
+# The shop 
 ## The Application based on Udemy course
 
 To start working with this application on your laptop, just clone it into your PC
