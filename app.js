@@ -9,7 +9,7 @@ const csrf = require("csurf");
 const flash = require("connect-flash");
 
 const MONGODB_URI =
-  "mongodb+srv://dmko1610:ta4Q6ut7ap3wYUv7@trigger-cluster-arnah.gcp.mongodb.net/shop";
+  "mongodb+srv://dmko1610:eg0tdhVDvepdkON4@trigger-cluster-arnah.gcp.mongodb.net/shop";
 const connectOptions = {
   useUnifiedTopology: true,
   useNewUrlParser: true,

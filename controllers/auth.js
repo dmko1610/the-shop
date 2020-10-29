@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
-const { validationResult } = require("express-validator/check");
+const { validationResult } = require("express-validator");
 const User = require("../models/user");
 
 function getMessage(req) {
@@ -62,7 +62,7 @@ exports.postSignup = (req, res, next) => {
     return res.status(422).render("auth/signup", {
       path: "/signup",
       pageTitle: "Signup",
-      errorMessage: errors.array()
+      errorMessage: errors.array()[0].msg
     });
   }
   User.findOne({ email })
