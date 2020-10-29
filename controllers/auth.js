@@ -62,31 +62,20 @@ exports.postSignup = (req, res, next) => {
     return res.status(422).render("auth/signup", {
       path: "/signup",
       pageTitle: "Signup",
-      errorMessage: errors.array()[0].msg
+      errorMessage: errors.array()[0].msg,
     });
   }
-  User.findOne({ email })
-    .then((userDoc) => {
-      if (!!userDoc) {
-        req.flash(
-          "error",
-          "E-mail exists already, please pick a different one."
-        );
-        return res.redirect("/signup");
-      }
-      return bcrypt
-        .hash(password, 12)
-        .then((password) => {
-          const user = new User({
-            email,
-            password,
-            cart: { items: [] },
-          });
-          return user.save();
-        })
-        .then(() => res.redirect("/login"));
+  bcrypt
+    .hash(password, 12)
+    .then((password) => {
+      const user = new User({
+        email,
+        password,
+        cart: { items: [] },
+      });
+      return user.save();
     })
-
+    .then(() => res.redirect("/login"))
     .catch((err) => console.log(err));
 };
 
