@@ -43,7 +43,7 @@ router.post(
       .isLength({ min: 4 })
       .isAlphanumeric(),
     body("confirmPassword").custom((value, { req }) => {
-      if (value === req.body.password) {
+      if (value !== req.body.password) {
         throw new Error("Passwords have to match!");
       }
       return true;
