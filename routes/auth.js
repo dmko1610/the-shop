@@ -13,10 +13,14 @@ router.get("/signup", authController.getSignup);
 router.post(
   "/login",
   [
-    body("email").isEmail().withMessage("Please enter a valid email address."),
+    body("email")
+      .isEmail()
+      .withMessage("Please enter a valid email address.")
+      .normalizeEmail(),
     body("password", "Password has to be valid.")
       .isAlphanumeric()
-      .isLength({ min: 4 }),
+      .isLength({ min: 4 })
+      .trim(),
   ],
   authController.postLogin
 );
@@ -27,6 +31,7 @@ router.post(
     body("email")
       .isEmail()
       .withMessage("Please enter a valid email.")
+      .normalizeEmail()
       .custom((value) => {
         return User.findOne({ email: value }).then((userDoc) => {
           if (!!userDoc) {
@@ -41,13 +46,16 @@ router.post(
       "Please enter a password with only numbers and text and 4 characters at least"
     )
       .isLength({ min: 4 })
-      .isAlphanumeric(),
-    body("confirmPassword").custom((value, { req }) => {
-      if (value !== req.body.password) {
-        throw new Error("Passwords have to match!");
-      }
-      return true;
-    }),
+      .isAlphanumeric()
+      .trim(),
+    body("confirmPassword")
+      .trim()
+      .custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error("Passwords have to match!");
+        }
+        return true;
+      }),
   ],
   authController.postSignup
 );
