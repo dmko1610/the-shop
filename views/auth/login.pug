@@ -13,10 +13,20 @@ block content
     form.login-form(action="/login" method="POST")
       .form-control
         label(for="email") E-Mail
-        input(type="email" name="email")#email
+        input(
+          type="email" 
+          name="email" 
+          value=`${oldInput.email}`
+          class=`${validationErrors.find(e => e.param === "email") ? "invalid" : ""}`
+        )#email
       .form-control
         label(for="password") Password
-        input(type="password" name="password")#password
+        input(
+          type="password" 
+          name="password" 
+          value=`${oldInput.password}`
+          class=`${validationErrors.find(e => e.param === "password") ? "invalid" : ""}`
+        )#password
       input(type="hidden" value=csrfToken name="_csrf")
       button.btn(type="submit") Login
     .centered

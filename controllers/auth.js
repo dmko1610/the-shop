@@ -18,6 +18,11 @@ exports.getLogin = (req, res, next) => {
     path: "/login",
     pageTitle: "Login",
     errorMessage: getMessage(req),
+    oldInput: {
+      email: "",
+      password: "",
+    },
+    validationErrors: [],
   });
 };
 
@@ -43,6 +48,8 @@ exports.postLogin = (req, res, next) => {
       path: "/login",
       pageTitle: "Login",
       errorMessage: errors.array()[0].msg,
+      oldInput: {email, password},
+      validationErrors: errors.array()
     });
   }
 
