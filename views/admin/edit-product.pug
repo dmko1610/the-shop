@@ -25,6 +25,7 @@ block content
           type="text" 
           name="title" 
           value=`${title}`
+          class=`${validationErrors.find(e => e.param === "title") ? "invalid" : ""}`
         )#title
       .form-control
         label(for="imageUrl") Image URL
@@ -32,6 +33,7 @@ block content
           type="text"
           name="imageUrl"
           value=`${imageUrl}`
+          class=`${validationErrors.find(e => e.param === "imageUrl") ? "invalid" : ""}`
         )#imageUrl
       .form-control
         label(for="price") Price
@@ -40,10 +42,15 @@ block content
           name="price"
           step="0.01"
           value=`${price}`
+          class=`${validationErrors.find(e => e.param === "price") ? "invalid" : ""}`
         )#price
       .form-control
         label(for="description") Description
-        textarea(name='description' rows="5") #{description}
+        textarea(
+          name="description" 
+          rows="5"
+          class=`${validationErrors.find(e => e.param === "description") ? "invalid" : ""}`
+        ) #{description}
       if (editing)
         input(type="hidden" value=`${product._id}` name="productId")
       input(type="hidden" value=csrfToken name="_csrf")
