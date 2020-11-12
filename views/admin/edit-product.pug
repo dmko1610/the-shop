@@ -8,8 +8,13 @@ block styles
 block content
   - var editProduct = "/admin/edit-product";
   - var addProduct = "/admin/add-product";
-  - var description = editing ? product.description : "";
+  - var description = editing || hasError ? product.description : "";
+  - var title = editing || hasError ? product.title : "";
+  - var price = editing || hasError ? product.price : "";
+  - var imageUrl = editing || hasError ? product.imageUrl : "";
   main
+    if errorMessage
+      .user-message.user-message--error #{errorMessage}
     form.product-form(
       action=editing ? editProduct : addProduct 
       method="POST"
@@ -19,14 +24,14 @@ block content
         input(
           type="text" 
           name="title" 
-          value=editing ? product.title : ""
+          value=`${title}`
         )#title
       .form-control
         label(for="imageUrl") Image URL
         input(
           type="text"
           name="imageUrl"
-          value=editing ? product.imageUrl : ""
+          value=`${imageUrl}`
         )#imageUrl
       .form-control
         label(for="price") Price
@@ -34,14 +39,12 @@ block content
           type="number"
           name="price"
           step="0.01"
-          value=editing ? product.price : ""
+          value=`${price}`
         )#price
       .form-control
         label(for="description") Description
         textarea(name='description' rows="5") #{description}
       if (editing)
         input(type="hidden" value=`${product._id}` name="productId")
-        input(type="hidden" value=csrfToken name="_csrf")
-        button.btn(type="submit") Update Product
-      else
-        button.btn(type="submit") Add Product
+      input(type="hidden" value=csrfToken name="_csrf")
+      button.btn(type="submit") #{editing ? "Update Product" : "Add Product" }
