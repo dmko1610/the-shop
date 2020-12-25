@@ -86,7 +86,7 @@ exports.postLogin = (req, res, next) => {
           res.redirect("/login");
         });
     })
-    .catch((err) => console.log(err));
+    .catch(() => res.redirect("/500"));
 };
 
 exports.postSignup = (req, res, next) => {
@@ -112,7 +112,7 @@ exports.postSignup = (req, res, next) => {
       return user.save();
     })
     .then(() => res.redirect("/login"))
-    .catch((err) => console.log(err));
+    .catch(() => res.redirect("/500"));
 };
 
 exports.postLogout = (req, res, next) => {
@@ -163,7 +163,7 @@ exports.getNewPassword = (req, res, next) => {
         passwordToken: resetToken,
       });
     })
-    .catch((err) => console.log(err));
+    .catch(() => res.redirect("/500"));
 };
 
 exports.postNewPassword = (req, res, next) => {
@@ -185,5 +185,5 @@ exports.postNewPassword = (req, res, next) => {
       });
     })
     .then(() => res.redirect("/login"))
-    .catch((err) => console.log(err));
+    .catch(() => res.redirect("/500"));
 };

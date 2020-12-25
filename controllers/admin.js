@@ -1,5 +1,6 @@
-const Product = require("../models/product");
 const { validationResult } = require("express-validator");
+
+const Product = require("../models/product");
 
 exports.getAddProduct = (req, res, next) => {
   res.render("admin/edit-product", {
@@ -43,7 +44,7 @@ exports.postAddProduct = (req, res, next) => {
   product
     .save()
     .then(() => res.redirect("/admin/products"))
-    .catch((err) => console.log(err));
+    .catch(() => res.redirect("/500"));
 };
 
 exports.getEditProduct = (req, res, next) => {
@@ -67,7 +68,7 @@ exports.getEditProduct = (req, res, next) => {
         validationErrors: [],
       });
     })
-    .catch((err) => console.log(err));
+    .catch(() => res.redirect("/500"));
 };
 
 exports.postEditProduct = (req, res, next) => {
@@ -103,7 +104,7 @@ exports.postEditProduct = (req, res, next) => {
       product.imageUrl = imageUrl;
       return product.save().then(() => res.redirect("/admin/products"));
     })
-    .catch((err) => console.log(err));
+    .catch(() => res.redirect("/500"));
 };
 
 exports.getProducts = (req, res, next) => {
@@ -115,11 +116,11 @@ exports.getProducts = (req, res, next) => {
         path: "/admin/products",
       });
     })
-    .catch((err) => console.log(err));
+    .catch(() => res.redirect("/500"));
 };
 
 exports.postDeleteProduct = (req, res, next) => {
   Product.deleteOne({ _id: req.body.productId, userId: req.user._id })
     .then(() => res.redirect("/admin/products"))
-    .catch((err) => console.log(err));
+    .catch(() => res.redirect("/500"));
 };
