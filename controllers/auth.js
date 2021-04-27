@@ -151,7 +151,6 @@ exports.postReset = (req, res, next) => {
 };
 
 exports.getNewPassword = (req, res, next) => {
-  console.log("getNewPassword");
   const resetToken = req.params.token;
   User.findOne({ resetToken, resetTokenExpiration: { $gt: Date.now() } })
     .then((user) => {

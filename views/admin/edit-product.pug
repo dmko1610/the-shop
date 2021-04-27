@@ -18,6 +18,7 @@ block content
     form.product-form(
       action=editing ? editProduct : addProduct 
       method="POST"
+      enctype="multipart/form-data"
       )
       .form-control
         label(for="title") Title
@@ -27,14 +28,17 @@ block content
           value=`${title}`
           class=`${validationErrors.find(e => e.param === "title") ? "invalid" : ""}`
         )#title
+      //- .form-control
+      //-   label(for="imageUrl") Image URL
+      //-   input(
+      //-     type="text"
+      //-     name="imageUrl"
+      //-     value=`${imageUrl}`
+      //-     class=`${validationErrors.find(e => e.param === "imageUrl") ? "invalid" : ""}`
+      //-   )#imageUrl
       .form-control
-        label(for="imageUrl") Image URL
-        input(
-          type="text"
-          name="imageUrl"
-          value=`${imageUrl}`
-          class=`${validationErrors.find(e => e.param === "imageUrl") ? "invalid" : ""}`
-        )#imageUrl
+        label(for="image") Image
+        input(type="file" name="image")#image
       .form-control
         label(for="price") Price
         input(
