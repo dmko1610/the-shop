@@ -8,6 +8,7 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 const csrf = require("csurf");
 const flash = require("connect-flash");
 const multer = require("multer");
+const {v4: uuidv4} = require("uuid");
 
 const MONGODB_URI =
   "mongodb+srv://dmko1610:eg0tdhVDvepdkON4@trigger-cluster-arnah.gcp.mongodb.net/shop";
@@ -32,7 +33,7 @@ const fileStorage = multer.diskStorage({
     cb(null, "images");
   },
   filename: (req, file, cb) => {
-    cb(null, new Date().toISOString() + "-" + file.originalname);
+    cb(null, uuidv4() + "-" + file.originalname);
   },
 });
 
