@@ -143,8 +143,8 @@ exports.getProducts = (req, res, next) => {
     .catch(() => res.redirect("/500"));
 };
 
-exports.postDeleteProduct = (req, res, next) => {
-  const { productId } = req.body;
+exports.deleteProduct = (req, res, next) => {
+  const { productId } = req.params;
   Product.findById(productId)
     .then((product) => {
       if (!product) {
@@ -153,6 +153,6 @@ exports.postDeleteProduct = (req, res, next) => {
       fileHelper.deleteFile(product.imageUrl);
       return Product.deleteOne({ _id: productId, userId: req.user._id });
     })
-    .then(() => res.redirect("/admin/products"))
-    .catch(() => res.redirect("/500"));
+    .then(() => res.status(200).json({message: "Success!"}))
+    .catch(() => res.status("/500").json({message: "Deleting produce failed."}));
 };
