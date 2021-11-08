@@ -17,11 +17,14 @@ block content
               h2.product__price $#{product.price}
               p.product__description #{product.description}
             .card__actions
-              a(href='/products/' + product._id class="btn") Details
+              a(href="/products/" + product._id class="btn") Details
               if isAuthenticated 
                 form(action="/cart" method="post")
                   button(class="btn" type="submit") Add to Cart
                   input(type="hidden" value=csrfToken name="_csrf")
                   input(type="hidden" name="productId" value=product._id)
+      section.pagination
+        a(href="/?page=1") 1
+        a(href="/?page=2") 2
     else
       h1 No Products
